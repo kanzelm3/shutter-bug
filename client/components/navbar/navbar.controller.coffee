@@ -10,6 +10,10 @@ angular.module 'shutterBugApp'
   $scope.isLoggedIn = Auth.isLoggedIn
   $scope.isAdmin = Auth.isAdmin
   $scope.getCurrentUser = Auth.getCurrentUser
+  getCurrentAccessLevel = Auth.getCurrentAccessLevel
+
+  $scope.hasAccess = (level) ->
+    getCurrentAccessLevel() && getCurrentAccessLevel().name == level
 
   $scope.logout = ->
     Auth.logout()

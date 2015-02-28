@@ -14,6 +14,7 @@ angular.module 'shutterBugApp'
   $scope.isAdmin = Auth.isAdmin
   $scope.getCurrentUser = Auth.getCurrentUser
   $scope.getCurrentEntity = Auth.getCurrentEntity
+  $scope.setCurrentAccess = Auth.setCurrentAccess
 
   $scope.logout = ->
     Auth.logout()

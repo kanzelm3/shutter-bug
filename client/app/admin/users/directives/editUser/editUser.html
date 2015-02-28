@@ -1,8 +1,13 @@
-<div class="row">
-  <div class="col-xs-12">
-    <div class="btn-group btn-group-xs">
-      <label class="btn btn-default" ng-model="selectedAccessLevel" btn-radio="accessLevel.name" ng-repeat="accessLevel in currentAccess().entity.accessLevels">{{accessLevel.name}}</label>
+<div>
+    <div class="btn-group" dropdown>
+      <button type="button" class="btn btn-sm btn-default dropdown-toggle">
+        {{selectedAccessLevel}} <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li ng-repeat="accessLevel in currentAccess().entity.accessLevels">
+          <a href="" ng-click="setAccessLevel(accessLevel.name)">{{accessLevel.name}}</a>
+        </li>
+      </ul>
     </div>
-    <button type="button" class="btn btn-xs btn-primary" ng-click="save()">Save</button>
-  </div>
+    <button type="button" class="btn btn-sm btn-primary" ng-click="save()">Save</button>
 </div>

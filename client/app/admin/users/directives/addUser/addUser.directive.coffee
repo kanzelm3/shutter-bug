@@ -1,11 +1,10 @@
 'use strict'
 
 angular.module 'shutterBugApp'
-.directive 'editUser', (Auth) ->
-  templateUrl: 'app/admin/users/directives/editUser/editUser.html'
+.directive 'addUser', ->
+  templateUrl: 'app/admin/users/directives/addUser/addUser.html'
   restrict: 'E'
   scope:
-    user: '='
     currentAccess: '='
     saveMethod: '&'
   link: (scope) ->
@@ -15,4 +14,4 @@ angular.module 'shutterBugApp'
     scope.setAccessLevel = (level) ->
       scope.selectedAccessLevel = level
 
-    scope.selectedAccessLevel = Auth.getUserAccess(scope.user).accessLevel.name
+    scope.selectedAccessLevel = scope.currentAccess().entity.accessLevels[0].name

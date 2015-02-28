@@ -110,6 +110,9 @@ AccessLevel.find({}).remove(function() {
                         email: 'daviswh3@gmail.com',
                         password: 'ilovejoel',
                         accessDefinitions: [{
+                          entity: entity,
+                          accessLevel: adminAccess
+                        },{
                           entity: entity2,
                           accessLevel: adminAccess2
                         }]

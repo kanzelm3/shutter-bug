@@ -3,23 +3,49 @@
   <div class="col-md-6">
     <div class="list-group">
       <a href="" ng-click="edit(user)" class="list-group-item" ng-repeat="user in users">
+        <edit-user class="pull-right" user="user" current-access="getAccess" save-method="save(user)" ng-if="user.isEditing"></edit-user>
         <span class="edit glyphicon glyphicon-edit pull-right" ng-if="!user.isEditing" show-on-parent-hover></span>
         <strong>{{user.name}}</strong><span class="text-muted"> - {{getAccessLevel(user)}}</span><br>
         <span class="text-muted font-light">{{user.email}}</span>
-        <edit-user user="user" current-access="getAccess" save-method="save(user)" ng-if="user.isEditing"></edit-user>
+      </a>
+      <a href="" ng-click="addNewUser()" class="highlight-hover list-group-item">
+        <span class="font-light" ng-if="!addingNewUser"><i class="glyphicon glyphicon-plus"></i> Add New User</span>
+        <add-user current-access="getAccess" save-method="saveNewUser(user)" ng-if="addingNewUser"></add-user>
       </a>
     </div>
   </div>
   <div class="col-md-6">
-    <div class="panel panel-default">
+    <div class="panel panel-default access-levels">
       <div class="panel-heading">
-        <h3 class="panel-title">Access Levels</h3>
+        <span class="panel-title">Access Levels <span style="font-size:14px;margin-left:3px;" class="text-muted">Control what your users can do</span></span>
       </div>
       <div class="panel-body">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"> Check me out
-          </label>
+        <div class="btn-group" dropdown>
+          <button type="button" class="btn btn-sm btn-default dropdown-toggle">
+            {{selectedAccessLevel.name}} <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-repeat="accessLevel in getEntity().accessLevels">
+              <a href="" ng-click="setAccessLevel(accessLevel)">{{accessLevel.name}}</a>
+            </li>
+          </ul>
+        </div>
+        <a href="" class="highlight-hover font-light"><i class="glyphicon glyphicon-plus"></i> Add New</a>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="checkbox" ng-class="{disabled: !selectedAccessLevel.entity}" ng-repeat="(rule, active) in selectedAccessLevel.access" ng-if="$index % 2 == 0">
+              <label>
+                <input type="checkbox" ng-model="active" ng-disabled="!selectedAccessLevel.entity"> {{rule}}
+              </label>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="checkbox" ng-class="{disabled: !selectedAccessLevel.entity}" ng-repeat="(rule, active) in selectedAccessLevel.access" ng-if="$index % 2 == 1">
+              <label>
+                <input type="checkbox" ng-model="active" ng-disabled="!selectedAccessLevel.entity"> {{rule}}
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -20,11 +20,15 @@
 @import 'admin/admin.less';
 @import 'admin/dashboard/dashboard.less';
 @import 'admin/navbar/navbar.less';
+@import 'admin/users/directives/addUser/addUser.less';
 @import 'admin/users/directives/editUser/editUser.less';
 @import 'admin/users/users.less';
 @import 'main/main.less';
 @import 'modal/modal.less';
 // endinjector
+
+// colors
+@brand-primary: #0099ff;
 
 // fonts
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700);
@@ -62,7 +66,24 @@ h1, .h1, h2, .h2, h3, .h3 {
       color: #FFFFFF;
     }
     > li {
+      > span {
+        position: relative;
+        display: block;
+        padding: 15px 20px;
+        line-height: 20px;
+        color: #FFFFFF;
+        &.entity-name {
+          font-weight: 600;
+          text-transform: uppercase;
+          padding-right: 30px;
+          padding-left: 10px;
+        }
+      }
       > a {
+        &.entity-name {
+          font-weight: 600;
+          text-transform: uppercase;
+        }
         img {
           vertical-align: middle;
         }
@@ -90,5 +111,20 @@ h1, .h1, h2, .h2, h3, .h3 {
     > a, > a:hover, > a:focus {
       background-color: lighten(@brand-primary, 7%);
     }
+  }
+}
+
+.checkbox.disabled, .radio.disabled, fieldset[disabled] .checkbox, fieldset[disabled] .radio {
+  label {
+    cursor: not-allowed;
+  }
+}
+
+.checkbox, .radio {
+  label {
+    min-height: 20px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
   }
 }

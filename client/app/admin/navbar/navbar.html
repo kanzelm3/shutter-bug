@@ -11,8 +11,17 @@
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li>
-          <a class="entity-name" href="">{{getCurrentEntity().name}}</a>
+        <li ng-switch="getCurrentUser().accessDefinitions.length > 1" dropdown="getCurrentUser().accessDefinitions.length > 1">
+          <span class="entity-name" ng-switch-default>{{getCurrentEntity().name}}</span>
+          <a href="" class="dropdown-toggle entity-name" ng-switch-when="true">
+            {{getCurrentEntity().name}}
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu" ng-switch-when="true">
+            <li ng-repeat="accessDefinition in getCurrentUser().accessDefinitions">
+              <a href="" ng-click="setCurrentAccess(accessDefinition)">{{accessDefinition.entity.name}}</a>
+            </li>
+          </ul>
         </li>
         <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
           <a ng-href="{{item.link}}">{{item.title}}</a>
@@ -32,6 +41,8 @@
           <ul class="dropdown-menu">
             <li>
               <a href="/settings">Settings</a>
+            </li>
+            <li>
               <a href="" ng-click="logout()">Logout</a>
             </li>
           </ul>
