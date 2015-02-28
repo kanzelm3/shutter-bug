@@ -1,5 +1,7 @@
 #!/bin/sh
 
-git pull "origin" $1
+cd /opt/shutter-bug
+
+git pull
 
 return
