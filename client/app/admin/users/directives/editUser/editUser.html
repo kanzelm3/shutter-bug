@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="btn-group btn-group-xs">
+      <label class="btn btn-default" ng-model="selectedAccessLevel" btn-radio="accessLevel.name" ng-repeat="accessLevel in currentAccess().entity.accessLevels">{{accessLevel.name}}</label>
+    </div>
+    <button type="button" class="btn btn-xs btn-primary" ng-click="save()">Save</button>
+  </div>
+</div>
