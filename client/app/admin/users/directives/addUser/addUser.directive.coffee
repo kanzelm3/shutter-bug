@@ -9,9 +9,14 @@ angular.module 'shutterBugApp'
     saveMethod: '&'
   link: (scope) ->
     scope.save = ->
-      scope.saveMethod(scope.user)
+      accessDefinition =
+        entity: scope.currentAccess().entity._id
+        accessLevel: scope.selectedAccessLevel._id
+      scope.user.accessDefinitions = [accessDefinition]
+      scope.user.requiresSetup = true
+      scope.saveMethod({user:scope.user})
 
     scope.setAccessLevel = (level) ->
       scope.selectedAccessLevel = level
 
-    scope.selectedAccessLevel = scope.currentAccess().entity.accessLevels[0].name
+    scope.selectedAccessLevel = scope.currentAccess().entity.accessLevels[0]

@@ -5,9 +5,11 @@ angular.module 'shutterBugApp'
   $scope.menu = [{
     title: 'Dashboard'
     link: '/admin/dashboard'
+    accessProperties: ['canViewDashboard']
   }, {
     title: 'Users'
     link: '/admin/users'
+    accessProperties: ['canViewUsers']
   }]
   $scope.isCollapsed = true
   $scope.isLoggedIn = Auth.isLoggedIn
@@ -15,6 +17,7 @@ angular.module 'shutterBugApp'
   $scope.getCurrentUser = Auth.getCurrentUser
   $scope.getCurrentEntity = Auth.getCurrentEntity
   $scope.setCurrentAccess = Auth.setCurrentAccess
+  $scope.hasAccess = Auth.hasAccess
 
   $scope.logout = ->
     Auth.logout()

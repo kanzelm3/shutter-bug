@@ -13,6 +13,10 @@ function requiredProcessEnv(name) {
 // All configurations will extend these options
 // ============================================
 var all = {
+  app: {
+    title: 'Shutter Bug'
+  },
+
   env: process.env.NODE_ENV,
 
   // Root path of server
@@ -57,6 +61,17 @@ var all = {
     clientID:     process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
     callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
+  },
+
+  mailer: {
+    from: process.env.MAILER_FROM || 'Shutter Bug',
+    options: {
+      service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
+      auth: {
+        user: process.env.MAILER_EMAIL_ID || 'kanzelm3@gmail.com',
+        pass: process.env.MAILER_PASSWORD || '111307whit'
+      }
+    }
   }
 };
 

@@ -42,7 +42,10 @@ var UserSchema = new Schema({
   facebook: {},
   twitter: {},
   google: {},
-  github: {}
+  github: {},
+  // Create User Email Tokens
+  createUserToken: String,
+  createUserExpires: Date
 });
 
 /**
@@ -135,10 +138,14 @@ UserSchema
   .pre('save', function(next) {
     if (!this.isNew) return next();
 
-    if (!validatePresenceOf(this.hashedPassword) && authTypes.indexOf(this.provider) === -1)
+    if (this.requiresSetup) return next();
+
+    if (!validatePresenceOf(this.hashedPassword) && authTypes.indexOf(this.provider) === -1) {
       next(new Error('Invalid password'));
-    else
+    }
+    else {
       next();
+    }
   });
 
 /**

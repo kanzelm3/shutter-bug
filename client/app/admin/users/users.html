@@ -2,15 +2,18 @@
 <div id="users" class="row">
   <div class="col-md-6">
     <div class="list-group">
-      <a href="" ng-click="edit(user)" class="list-group-item" ng-repeat="user in users">
+      <a href="" ng-click="edit(user)" class="list-group-item" ng-repeat="user in users" ng-switch="user.createUserToken">
         <edit-user class="pull-right" user="user" current-access="getAccess" save-method="save(user)" ng-if="user.isEditing"></edit-user>
         <span class="edit glyphicon glyphicon-edit pull-right" ng-if="!user.isEditing" show-on-parent-hover></span>
-        <strong>{{user.name}}</strong><span class="text-muted"> - {{getAccessLevel(user)}}</span><br>
-        <span class="text-muted font-light">{{user.email}}</span>
+        <strong ng-switch-when="undefined">{{user.name}}</strong><span class="text-muted" ng-switch-when="undefined"> - {{getAccessLevel(user)}}</span><br ng-switch-when="undefined">
+        <span class="text-muted font-light" ng-switch-when="undefined">{{user.email}}</span>
+        <strong ng-switch-default>{{user.email}}</strong><span class="text-muted" ng-switch-default> - {{getAccessLevel(user)}}</span><br ng-switch-default>
+        <span class="text-muted font-light" ng-switch-default>Email invite sent, setup pending</span>
       </a>
       <a href="" ng-click="addNewUser()" class="highlight-hover list-group-item">
-        <span class="font-light" ng-if="!addingNewUser"><i class="glyphicon glyphicon-plus"></i> Add New User</span>
+        <span class="font-light" ng-if="!addingNewUser && !status.message"><i class="glyphicon glyphicon-plus"></i> Add New User</span>
         <add-user current-access="getAccess" save-method="saveNewUser(user)" ng-if="addingNewUser"></add-user>
+        <span class="font-light" ng-show="status.message">{{status.message}}</span>
       </a>
     </div>
   </div>

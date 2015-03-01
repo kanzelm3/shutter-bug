@@ -22,6 +22,7 @@
 @import 'admin/navbar/navbar.less';
 @import 'admin/users/directives/addUser/addUser.less';
 @import 'admin/users/directives/editUser/editUser.less';
+@import 'admin/users/new/new.less';
 @import 'admin/users/users.less';
 @import 'main/main.less';
 @import 'modal/modal.less';
@@ -61,6 +62,12 @@ h1, .h1, h2, .h2, h3, .h3 {
 
 .navbar-primary {
   background-color: @brand-primary;
+  .navbar-toggle {
+    background-color: lighten(@brand-primary, 10%);
+    .icon-bar {
+      background-color: #FFFFFF;
+    }
+  }
   .navbar-nav {
     .navbar-text {
       color: #FFFFFF;

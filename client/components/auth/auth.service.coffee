@@ -1,11 +1,14 @@
 'use strict'
 
 angular.module 'shutterBugApp'
-.factory 'Auth', ($location, $rootScope, $http, User, $cookieStore, $q) ->
+.factory 'Auth', ($location, $stateParams, $rootScope, $http, User, $cookieStore, $q) ->
   currentUser = if $cookieStore.get 'token' then User.get() else {}
   currentAccess = {}
   currentUser.$promise && currentUser.$promise.then (user) ->
     currentAccess = if user.accessDefinitions then user.accessDefinitions[0] else {}
+
+  getCurrentAccessLevel = ->
+    currentAccess.accessLevel
 
   ###
   Authenticate user and save token
@@ -67,6 +70,14 @@ angular.module 'shutterBugApp'
 
     .$promise
 
+  completeUserSetup: (user) ->
+    $http.post '/api/users/new/' + $stateParams.token, user
+    .then (data) ->
+      $cookieStore.put 'token', data.token
+      currentUser = User.get()
+    , (err) =>
+      @logout()
+
 
   ###
   Change password
@@ -109,8 +120,7 @@ angular.module 'shutterBugApp'
   getCurrentEntity: ->
     currentAccess.entity
 
-  getCurrentAccessLevel: ->
-    currentAccess.accessLevel
+  getCurrentAccessLevel: getCurrentAccessLevel
 
   getUserAccess: (user) ->
     return _.find user.accessDefinitions, (accessDefinition) ->
@@ -148,6 +158,14 @@ angular.module 'shutterBugApp'
   isAdmin: ->
     currentUser.role is 'admin'
 
+  hasAccess: (properties) ->
+    hasAccess = false
+    if getCurrentAccessLevel()
+      if Array.isArray(properties) then properties else [properties]
+      properties.forEach (property) ->
+        if getCurrentAccessLevel().access[property]
+          hasAccess = true
+    hasAccess
 
   ###
   Get auth token

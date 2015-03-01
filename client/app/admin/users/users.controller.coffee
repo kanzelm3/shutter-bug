@@ -28,8 +28,14 @@ angular.module 'shutterBugApp'
 
   $scope.saveNewUser = (user) ->
     console.log 'User:', user
-    $timeout ->
+    _user = new User(user)
+    _user.$save ->
       $scope.addingNewUser = false
+      $scope.status = _user;
+      $timeout ->
+        $scope.status = undefined
+        $scope.users = User.query({entityId: Auth.getCurrentEntity()._id})
+      , 4000
 
   $scope.$watch Auth.getCurrentEntity, (newVal) ->
     if (newVal)

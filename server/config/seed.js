@@ -14,6 +14,8 @@ AccessLevel.find({}).remove(function() {
   AccessLevel.create({
       name: 'Admin',
       access: {
+        canViewDashboard: true,
+        canViewUsers: true,
         addCustomers: true,
         editCustomers: true,
         deleteCustomers: true,
@@ -30,6 +32,8 @@ AccessLevel.find({}).remove(function() {
     }, {
       name: 'Employee',
       access: {
+        canViewDashboard: true,
+        canViewUsers: false,
         addCustomers: false,
         editCustomers: true,
         deleteCustomers: false,
