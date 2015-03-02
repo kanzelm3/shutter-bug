@@ -13,7 +13,7 @@ router.get('/me', auth.isAuthenticated(), controller.me);
 router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/:id', auth.isAuthenticated(), controller.update);
-router.post('/', controller.create, controller.createSetupEmail);
+router.post('/', controller.create, controller.createSetupEmail, controller.addAccessDefinition);
 router.get('/new/:token', controller.validateCreateToken);
 router.post('/new/:token', controller.completeUserSetup);
 

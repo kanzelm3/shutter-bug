@@ -16,3 +16,8 @@
   <button type="button" class="btn btn-sm btn-primary" ng-click="save()"><i class="glyphicon glyphicon-plus"></i> Add User</button>
   <button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
 </div>
+<div class="row" style="margin-top: 5px;" ng-repeat="error in errors">
+  <div class="col-xs-12">
+    <span class="font-light text-danger" ng-show="error.message">{{error.message}}</span>
+  </div>
+</div>

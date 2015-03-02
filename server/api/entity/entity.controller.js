@@ -34,7 +34,11 @@ exports.update = function(req, res) {
   Entity.findById(req.params.id, function (err, entity) {
     if (err) { return handleError(res, err); }
     if(!entity) { return res.send(404); }
+    var accessLevelsOrig = _.clone(entity.accessLevels);
     var updated = _.merge(entity, req.body);
+    if (!_.isEqual(updated.accessLevels, accessLevelsOrig.accessLevels)) {
+      updated.markModified('accessLevels');
+    }
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, entity);

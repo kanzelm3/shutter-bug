@@ -23,7 +23,7 @@
             </li>
           </ul>
         </li>
-        <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}" ng-if="hasAccess(item.accessProperties)">
+        <li ng-repeat="item in menu.items" ng-class="{active: isActive(item.link)}" ng-if="item.shouldRender()">
           <a ng-href="{{item.link}}">{{item.title}}</a>
         </li>
         <!--<li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>-->

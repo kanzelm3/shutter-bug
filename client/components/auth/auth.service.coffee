@@ -47,6 +47,7 @@ angular.module 'shutterBugApp'
   logout: ->
     $cookieStore.remove 'token'
     currentUser = {}
+    currentAccess = {}
     return
 
 
@@ -130,6 +131,8 @@ angular.module 'shutterBugApp'
   getCurrentAccessLevel: getCurrentAccessLevel
 
   getUserAccess: (user) ->
+    if !currentAccess.entity
+      return {}
     return _.find user.accessDefinitions, (accessDefinition) ->
       return accessDefinition.entity.name == currentAccess.entity.name
 

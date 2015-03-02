@@ -33,7 +33,7 @@ angular.module 'shutterBugApp', [
 
     $q.reject response
 
-.run ($rootScope, $state, $location, Auth) ->
+.run ($rootScope, $state, $location, Auth, Menu) ->
   shouldAuthenticate = (state) ->
     authenticate = state.authenticate
     if !authenticate and state.parent
@@ -42,4 +42,25 @@ angular.module 'shutterBugApp', [
   # Redirect to login if route requires auth and you're not logged in
   $rootScope.$on '$stateChangeStart', (event, next) ->
     Auth.isLoggedInAsync (loggedIn) ->
-      $location.path "/admin/login" if shouldAuthenticate(next) and not loggedIn
+      if shouldAuthenticate(next) and not loggedIn
+        return $location.path "/admin/login"
+      if !Menu.shouldRenderState(next)
+        return $location.path '/admin/dashboard'
+
+  $rootScope.$watch Auth.getCurrentAccess, (newVal, oldVal) ->
+    if newVal and !_.isEqual newVal, oldVal
+      if !Menu.shouldRenderState($state.current)
+        $location.path '/admin/dashboard'
+
+  Menu.addMenuItem 'admin',
+    title: 'Dashboard'
+    link: '/admin/dashboard'
+    hasAccess: ['canViewDashboard']
+  Menu.addMenuItem 'admin',
+    title: 'Users'
+    link: '/admin/users'
+    hasAccess: ['canViewUsers']
+#  Menu.addSubMenuItem 'admin', '/admin/user',
+#    title: 'Dashboard'
+#    link: '/admin/dashboard'
+#    hasAccess: ['canViewDashboard']

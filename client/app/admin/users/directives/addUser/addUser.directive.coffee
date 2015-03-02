@@ -6,6 +6,7 @@ angular.module 'shutterBugApp'
   restrict: 'E'
   scope:
     currentAccess: '='
+    errors: '='
     saveMethod: '&'
     cancelMethod: '&'
   link: (scope) ->

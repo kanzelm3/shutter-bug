@@ -65,7 +65,6 @@ exports.createSetupEmail = function (req, res, next) {
       user.provider = 'local';
       user.role = 'user';
       user.requiresSetup = req.body.requiresSetup;
-      console.log('New user: ', user);
 
       user.createUserToken = token;
       user.createUserExpires = Date.now() + 3600000; // 1 hour
@@ -105,8 +104,42 @@ exports.createSetupEmail = function (req, res, next) {
       });
     }
   ], function(err) {
-    if (err) return next(err);
+    if (err)  {
+      req.error = err;
+      return next();
+    }
   });
+};
+
+/**
+ * Add access definition to user if already exists
+ */
+exports.addAccessDefinition = function(req, res, next) {
+  if (req.error && req.error.errors && req.error.errors.email && req.error.errors.email.message === 'The specified email address is already in use.') {
+    var accessDef = req.body.accessDefinitions[0];
+    User.findOne({email: req.body.email}).deepPopulate(['accessDefinitions.entity.accessLevels', 'accessDefinitions.accessLevel']).exec(function(_err, user) {
+      if (_err) {
+        console.log('Error: ', _err);
+      }
+      var definitionExists = _.find(user.accessDefinitions, function(def) {
+        return String(def.entity._id) === accessDef.entity;
+      });
+      if (definitionExists) {
+        return res.json(500, req.error);
+      }
+      user.accessDefinitions.push(accessDef);
+      user.markModified('accessDefinitions');
+      user.save(function(err, _user) {
+        if (!err) {
+          return res.send({
+            message: user.email + ' has been added as a user.'
+          });
+        }
+      });
+    });
+  } else {
+    return res.json(500, req.error);
+  }
 };
 
 /**

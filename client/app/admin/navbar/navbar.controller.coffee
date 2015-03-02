@@ -1,21 +1,15 @@
 'use strict'
 
 angular.module 'shutterBugApp'
-.controller 'AdminNavbarCtrl', ($scope, $location, Auth) ->
-  $scope.menu = [{
-    title: 'Dashboard'
-    link: '/admin/dashboard'
-    accessProperties: ['canViewDashboard']
-  }, {
-    title: 'Users'
-    link: '/admin/users'
-    accessProperties: ['canViewUsers']
-  }]
+.controller 'AdminNavbarCtrl', ($scope, $location, Auth, Menu) ->
+  $scope.menu = Menu.getMenu 'admin'
+
   $scope.isCollapsed = true
   $scope.isLoggedIn = Auth.isLoggedIn
   $scope.isAdmin = Auth.isAdmin
   $scope.getCurrentUser = Auth.getCurrentUser
   $scope.getCurrentEntity = Auth.getCurrentEntity
+  $scope.getCurrentAccess = Auth.getCurrentAccess
   $scope.setCurrentAccess = Auth.setCurrentAccess
   $scope.hasAccess = Auth.hasAccess
 

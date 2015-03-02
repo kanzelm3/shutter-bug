@@ -12,7 +12,7 @@
       </a>
       <a href="" ng-click="addNewUser()" class="highlight-hover list-group-item">
         <span class="font-light" ng-if="!addingNewUser && !status.message"><i class="glyphicon glyphicon-plus"></i> Add New User</span>
-        <add-user current-access="getAccess" save-method="saveNewUser(user)" cancel-method="cancelAddNewUser()" ng-if="addingNewUser"></add-user>
+        <add-user current-access="getAccess" errors="newUserErrors" save-method="saveNewUser(user)" cancel-method="cancelAddNewUser()" ng-if="addingNewUser"></add-user>
         <span class="font-light" ng-show="status.message">{{status.message}}</span>
       </a>
     </div>
@@ -59,6 +59,11 @@
           </div>
           <button type="button" class="btn btn-sm btn-primary" ng-click="saveNewAccessLevel()"><i class="glyphicon glyphicon-plus"></i> Add Level</button>
           <button type="button" class="btn btn-sm btn-default" ng-click="cancelAddNewAccessLevel()">Cancel</button>
+        </div>
+        <div class="row" style="margin-top: 5px;" ng-repeat="error in accessLevelErrors">
+          <div class="col-xs-12">
+            <span class="font-light text-danger" ng-show="error.message">{{error.message}}</span>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs-6">
