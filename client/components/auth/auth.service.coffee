@@ -71,12 +71,19 @@ angular.module 'shutterBugApp'
     .$promise
 
   completeUserSetup: (user) ->
+    deferred = $q.defer()
     $http.post '/api/users/new/' + $stateParams.token, user
-    .then (data) ->
-      $cookieStore.put 'token', data.data.token
+
+    .success (data) ->
+      $cookieStore.put 'token', data.token
       currentUser = User.get()
-    , (err) =>
+      currentUser.$promise && currentUser.$promise.then (user) ->
+        currentAccess = if user.accessDefinitions then user.accessDefinitions[0] else {}
+      deferred.resolve data
+
+    .error (err) =>
       @logout()
+      deferred.reject err
 
 
   ###

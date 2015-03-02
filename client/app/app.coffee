@@ -26,7 +26,7 @@ angular.module 'shutterBugApp', [
   responseError: (response) ->
     if response.status is 401
       $timeout ->
-        $location.path '/login'
+        $location.path '/admin/login'
       , 0
       # remove any stale tokens
       $cookieStore.remove 'token'
@@ -42,4 +42,4 @@ angular.module 'shutterBugApp', [
   # Redirect to login if route requires auth and you're not logged in
   $rootScope.$on '$stateChangeStart', (event, next) ->
     Auth.isLoggedInAsync (loggedIn) ->
-      $location.path "/login" if shouldAuthenticate(next) and not loggedIn
+      $location.path "/admin/login" if shouldAuthenticate(next) and not loggedIn

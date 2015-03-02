@@ -17,7 +17,7 @@ angular.module 'shutterBugApp'
 
   $scope.logout = ->
     Auth.logout()
-    $location.path '/login'
+    $location.path '/admin/login'
 
   $scope.isActive = (route) ->
     if route == '/' then route is $location.path() else !!~ $location.path().indexOf route
