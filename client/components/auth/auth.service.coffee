@@ -73,7 +73,7 @@ angular.module 'shutterBugApp'
   completeUserSetup: (user) ->
     $http.post '/api/users/new/' + $stateParams.token, user
     .then (data) ->
-      $cookieStore.put 'token', data.token
+      $cookieStore.put 'token', data.data.token
       currentUser = User.get()
     , (err) =>
       @logout()

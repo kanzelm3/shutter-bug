@@ -7,6 +7,7 @@ angular.module 'shutterBugApp'
   scope:
     currentAccess: '='
     saveMethod: '&'
+    cancelMethod: '&'
   link: (scope) ->
     scope.save = ->
       accessDefinition =
@@ -15,6 +16,9 @@ angular.module 'shutterBugApp'
       scope.user.accessDefinitions = [accessDefinition]
       scope.user.requiresSetup = true
       scope.saveMethod({user:scope.user})
+
+    scope.cancel = ->
+      scope.cancelMethod()
 
     scope.setAccessLevel = (level) ->
       scope.selectedAccessLevel = level

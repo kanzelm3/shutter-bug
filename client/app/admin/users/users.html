@@ -12,7 +12,7 @@
       </a>
       <a href="" ng-click="addNewUser()" class="highlight-hover list-group-item">
         <span class="font-light" ng-if="!addingNewUser && !status.message"><i class="glyphicon glyphicon-plus"></i> Add New User</span>
-        <add-user current-access="getAccess" save-method="saveNewUser(user)" ng-if="addingNewUser"></add-user>
+        <add-user current-access="getAccess" save-method="saveNewUser(user)" cancel-method="cancelAddNewUser()" ng-if="addingNewUser"></add-user>
         <span class="font-light" ng-show="status.message">{{status.message}}</span>
       </a>
     </div>
@@ -22,7 +22,7 @@
       <div class="panel-heading">
         <span class="panel-title">Access Levels <span style="font-size:14px;margin-left:3px;" class="text-muted">Control what your users can do</span></span>
       </div>
-      <div class="panel-body">
+      <div class="panel-body" ng-if="!addingNewAccessLevel">
         <div class="btn-group" dropdown>
           <button type="button" class="btn btn-sm btn-default dropdown-toggle">
             {{selectedAccessLevel.name}} <span class="caret"></span>
@@ -33,7 +33,7 @@
             </li>
           </ul>
         </div>
-        <a href="" class="highlight-hover font-light"><i class="glyphicon glyphicon-plus"></i> Add New</a>
+        <a href="" ng-click="addNewAccessLevel()" class="highlight-hover font-light"><i class="glyphicon glyphicon-plus"></i> Add New</a>
         <div class="row">
           <div class="col-xs-6">
             <div class="checkbox" ng-class="{disabled: !selectedAccessLevel.entity}" ng-repeat="(rule, active) in selectedAccessLevel.access" ng-if="$index % 2 == 0">
@@ -46,6 +46,32 @@
             <div class="checkbox" ng-class="{disabled: !selectedAccessLevel.entity}" ng-repeat="(rule, active) in selectedAccessLevel.access" ng-if="$index % 2 == 1">
               <label>
                 <input type="checkbox" ng-model="active" ng-disabled="!selectedAccessLevel.entity"> {{rule}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body" ng-if="addingNewAccessLevel">
+        <div class="form-inline">
+          <div class="form-group">
+            <label class="field-label" for="accessLevelName">Name</label>
+            <input type="text" ng-model="newAccessLevel.name" class="form-control input-sm" id="accessLevelName" placeholder="Access level name...">
+          </div>
+          <button type="button" class="btn btn-sm btn-primary" ng-click="saveNewAccessLevel()"><i class="glyphicon glyphicon-plus"></i> Add Level</button>
+          <button type="button" class="btn btn-sm btn-default" ng-click="cancelAddNewAccessLevel()">Cancel</button>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="checkbox" ng-repeat="rule in availableAccessProperties" ng-if="$index % 2 == 0">
+              <label>
+                <input type="checkbox" ng-model="newAccessLevel.access[rule]"> {{rule}}
+              </label>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="checkbox" ng-repeat="rule in availableAccessProperties" ng-if="$index % 2 == 1">
+              <label>
+                <input type="checkbox" ng-model="newAccessLevel.access[rule]"> {{rule}}
               </label>
             </div>
           </div>

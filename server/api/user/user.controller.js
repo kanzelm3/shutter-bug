@@ -219,6 +219,31 @@ exports.destroy = function(req, res) {
 };
 
 /**
+ * Update a user
+ */
+exports.update = function(req, res, next) {
+  console.log('User to save: ', req.body);
+  var userId = req.body._id;
+  User.findById(userId).deepPopulate(['accessDefinitions.entity.accessLevels', 'accessDefinitions.accessLevel']).exec(function(err, user) {
+    var newUser = _.extend(user, req.body);
+    newUser.accessDefinitions = newUser.accessDefinitions.map(function(accessDefinition) {
+      return {
+        entity: accessDefinition.entity._id,
+        accessLevel: accessDefinition.accessLevel._id
+      }
+    });
+    console.log('New user:', newUser);
+    newUser.save(function(err, _user) {
+      if (err) return validationError(res, err);
+      _user.deepPopulate(['accessDefinitions.entity.accessLevels', 'accessDefinitions.accessLevel'], function(err, _user) {
+        if (err) return validationError(res, err);
+        res.json(_user);
+      });
+    })
+  });
+};
+
+/**
  * Change a users password
  */
 exports.changePassword = function(req, res, next) {

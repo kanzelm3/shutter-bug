@@ -1,6 +1,6 @@
 <div class="form-inline" id="add-user">
   <div class="form-group">
-    <label class="email-label" for="email">Email</label>
+    <label class="field-label" for="email">Email</label>
     <input type="text" ng-model="user.email" class="form-control input-sm" id="email" placeholder="user@example.com">
   </div>
   <div class="btn-group" dropdown>
@@ -14,4 +14,5 @@
     </ul>
   </div>
   <button type="button" class="btn btn-sm btn-primary" ng-click="save()"><i class="glyphicon glyphicon-plus"></i> Add User</button>
+  <button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
 </div>

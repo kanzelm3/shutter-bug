@@ -1,11 +1,11 @@
 <div>
     <div class="btn-group" dropdown>
       <button type="button" class="btn btn-sm btn-default dropdown-toggle">
-        {{selectedAccessLevel}} <span class="caret"></span>
+        {{selectedAccessLevel.name}} <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu">
         <li ng-repeat="accessLevel in currentAccess().entity.accessLevels">
-          <a href="" ng-click="setAccessLevel(accessLevel.name)">{{accessLevel.name}}</a>
+          <a href="" ng-click="setAccessLevel(accessLevel)">{{accessLevel.name}}</a>
         </li>
       </ul>
     </div>

@@ -22,6 +22,9 @@ exports.show = function(req, res) {
 
 // Creates a new accessLevel in the DB.
 exports.create = function(req, res) {
+  if (req.body.entity) {
+    req.body.entity = req.body.entity._id;
+  }
   AccessLevel.create(req.body, function(err, accessLevel) {
     if(err) { return handleError(res, err); }
     return res.json(201, accessLevel);
