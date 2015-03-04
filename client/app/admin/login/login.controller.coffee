@@ -14,7 +14,7 @@ angular.module 'shutterBugApp'
         password: $scope.user.password
 
       .then ->
-        $location.path '/'
+        $location.path '/admin/dashboard'
 
       .catch (err) ->
         $scope.errors.other = err.message
