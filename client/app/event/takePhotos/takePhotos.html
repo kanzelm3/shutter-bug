@@ -1,0 +1,57 @@
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="text-primary">Step 1 <small class="font-light">Capture photos! You know you want to.</small></h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="button" class="btn btn-lg btn-warning" ng-click="capturePhoto()"><i class="fa fa-camera"></i> Capture</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="text-primary">Step 2 <small class="font-light">Select the ones you want.</small></h2>
+        </div>
+      </div>
+      <div class="row" ng-if="!pictures.length">
+        <div class="col-xs-12 text-center">
+          <div class="well well-lg">
+            <i class="fa fa-camera-retro" style="font-size: 60px;"></i>
+            <h3 style="margin-bottom: 0;">You haven't taken any photos yet!</h3>
+          </div>
+        </div>
+      </div>
+      <div class="row" ng-repeat="n in pictures" ng-if="$index % 3 == 0">
+        <div class="col-xs-4 picture-item" ng-repeat="picture in pictures" ng-class="{selected: picture.selected}" ng-if="$index >= $parent.$index && $index < $parent.$index + 3">
+          <a class="select-picture" href="" ng-click="selectPicture(picture)"><i class="fa fa-check-circle-o"></i></a>
+          <img class="img-responsive picture-thumbnail" ng-hide="loaded[picture._id]" src="http://placehold.it/600x400" alt="{{picture.type + ': ' + picture._id}}" />
+          <a href="" ng-click="enlarge(picture)" ng-show="loaded[picture._id]">
+            <img class="img-responsive picture-thumbnail" image-on-load="loaded[picture._id]" ng-src="{{picture.url}}" alt="{{picture.type + ': ' + picture._id}}" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="text-primary">Step 3 <small class="font-light">Print and share.</small></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay" ng-show="countdown != undefined">
+    <video id="video" class="media" width="1280" height="720" autoplay></video>
+    <div class="captured" ng-if="countdown == 0"><i class="fa fa-camera"></i> {{captureMessage}}</div>
+    <div class="countdown-timer" ng-if="!!countdown">{{countdown}}</div>
+  </div>
+  <div class="overlay" ng-show="enlargedPicture">
+    <a href="" ng-click="previousImage()" class="arrow left"><i class="fa fa-chevron-left"></i></a>
+    <img ng-src="{{enlargedPicture.url}}" class="media" />
+    <a href="" ng-click="nextImage()" class="arrow right"><i class="fa fa-chevron-right"></i></a>
+  </div>
+</div>

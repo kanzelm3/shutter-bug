@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'shutterBugApp'
-.controller 'UsersCtrl', ($scope, $timeout, $stateParams, $http, Auth, User, AccessLevel, Entity) ->
+.controller 'UsersCtrl', ($scope, $timeout, $http, Auth, User, AccessLevel, Entity) ->
 
   $scope.newAccessLevel = {}
   $scope.availableAccessProperties = [

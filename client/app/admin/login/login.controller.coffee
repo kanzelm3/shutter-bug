@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'shutterBugApp'
-.controller 'LoginCtrl', ($scope, Auth, $location, $window) ->
+.controller 'LoginCtrl', ($scope, $stateParams, Auth, $location, $window) ->
   $scope.user = {}
   $scope.errors = {}
   $scope.login = (form) ->
@@ -14,7 +14,9 @@ angular.module 'shutterBugApp'
         password: $scope.user.password
 
       .then ->
-        $location.path '/admin/dashboard'
+        path = $stateParams.url or '/admin/dashboard'
+        $location.path path
+        $location.search('url', null)
 
       .catch (err) ->
         $scope.errors.other = err.message

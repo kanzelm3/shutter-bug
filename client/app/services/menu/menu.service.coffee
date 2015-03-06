@@ -76,10 +76,6 @@ angular.module 'shutterBugApp'
           return self.findMenuItem url, item.items
     return foundItem
 
-  # Adding the topbar menu
-  this.addMenu('default', true);
-  this.addMenu('admin', false);
-
   getFullUrl = (state, str) ->
     str = str || state.url
     if state.parent
@@ -96,5 +92,10 @@ angular.module 'shutterBugApp'
     if menuItem
       return menuItem.shouldRender()
     return true
+
+  # Adding the topbar menu
+  this.addMenu('default', true);
+  this.addMenu('admin', false);
+  this.addMenu('event', false);
 
   return

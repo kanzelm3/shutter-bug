@@ -24,6 +24,10 @@
 @import 'admin/users/directives/editUser/editUser.less';
 @import 'admin/users/new/new.less';
 @import 'admin/users/users.less';
+@import 'event/dashboard/dashboard.less';
+@import 'event/event.less';
+@import 'event/navbar/navbar.less';
+@import 'event/takePhotos/takePhotos.less';
 @import 'main/main.less';
 @import 'modal/modal.less';
 // endinjector
@@ -36,6 +40,10 @@
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
+  &.event-mode {
+    background: @brand-primary;
+    color: #FFFFFF;
+  }
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -52,6 +60,43 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 .font-extra-light {
   font-weight:200;
+}
+
+// custom btn styles
+
+.btn {
+  &.btn-lg {
+    &.btn-primary {
+      -webkit-box-shadow: 0 3px 0 darken(@brand-primary, 10%);
+      -moz-box-shadow: 0 3px 0 darken(@brand-primary, 10%);
+      box-shadow: 0 3px 0 darken(@brand-primary, 10%);
+    }
+    &.btn-success {
+      -webkit-box-shadow: 0 3px 0 darken(@brand-success, 10%);
+      -moz-box-shadow: 0 3px 0 darken(@brand-success, 10%);
+      box-shadow: 0 3px 0 darken(@brand-success, 10%);
+    }
+    &.btn-info {
+      -webkit-box-shadow: 0 3px 0 darken(@brand-info, 10%);
+      -moz-box-shadow: 0 3px 0 darken(@brand-info, 10%);
+      box-shadow: 0 3px 0 darken(@brand-info, 10%);
+    }
+    &.btn-warning {
+      -webkit-box-shadow: 0 3px 0 darken(@brand-warning, 10%);
+      -moz-box-shadow: 0 3px 0 darken(@brand-warning, 10%);
+      box-shadow: 0 3px 0 darken(@brand-warning, 10%);
+    }
+    &.btn-danger {
+      -webkit-box-shadow: 0 3px 0 darken(@brand-danger, 10%);
+      -moz-box-shadow: 0 3px 0 darken(@brand-danger, 10%);
+      box-shadow: 0 3px 0 darken(@brand-danger, 10%);
+    }
+    &.btn-default {
+      -webkit-box-shadow: 0 3px 0 lighten(@btn-default-color, 40%);
+      -moz-box-shadow: 0 3px 0 lighten(@btn-default-color, 40%);
+      box-shadow: 0 3px 0 lighten(@btn-default-color, 40%);
+    }
+  }
 }
 
 // custom nav styles

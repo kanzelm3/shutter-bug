@@ -21,7 +21,7 @@
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
-  <body ng-app="shutterBugApp">
+  <body ng-app="shutterBugApp" ng-class="{'event-mode': stateContains('event.dashboard')}">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -71,11 +71,17 @@
           <script src="app/admin/navbar/navbar.js"></script>
           <script src="app/admin/services/AccessLevel/AccessLevel.js"></script>
           <script src="app/admin/services/Entity/Entity.js"></script>
+          <script src="app/admin/services/Event/Event.js"></script>
           <script src="app/admin/users/directives/addUser/addUser.js"></script>
           <script src="app/admin/users/directives/editUser/editUser.js"></script>
           <script src="app/admin/users/new/new.js"></script>
           <script src="app/admin/users/users.js"></script>
+          <script src="app/directives/imageOnLoad/imageOnLoad.js"></script>
           <script src="app/directives/showOnParentHover/showOnParentHover.js"></script>
+          <script src="app/event/dashboard/dashboard.js"></script>
+          <script src="app/event/event.js"></script>
+          <script src="app/event/navbar/navbar.js"></script>
+          <script src="app/event/takePhotos/takePhotos.js"></script>
           <script src="app/main/main.js"></script>
           <script src="app/services/menu/menu.js"></script>
           <script src="components/auth/auth.js"></script>

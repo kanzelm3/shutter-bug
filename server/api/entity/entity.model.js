@@ -33,7 +33,13 @@ var EntitySchema = new Schema({
     ref: 'AccessLevel'
   }],
   email: String,
-  address: Schema.Types.Mixed,
+  address: {
+    line1: String,
+    line2: String,
+    city: String,
+    state: String,
+    zip: String
+  },
   phone: String
 });
 

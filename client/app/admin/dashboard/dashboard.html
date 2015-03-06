@@ -1,3 +1,12 @@
 <div class="col-md-12">
-Testing the git deploy script! Testing!
+  <div class="row">
+    <div style="margin: 0 auto;">
+      <div class="col-xs-4" ng-repeat="event in events">
+        <p>{{event.name}}</p>
+        <p ng-repeat="(key, val) in event.location">{{val}}</p>
+        <p>{{event.scheduledTime.start | date:'short'}}</p>
+        <a ui-sref="event.dashboard({eventId: event._id})" class="btn btn-lg btn-warning">Go to Event</a>
+      </div>
+    </div>
+  </div>
 </div>

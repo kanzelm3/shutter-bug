@@ -18,6 +18,8 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/asset/asset.socket').register(socket);
+  require('../api/event/event.socket').register(socket);
   require('../api/accessLevel/accessLevel.socket').register(socket);
   require('../api/entity/entity.socket').register(socket);
 }
